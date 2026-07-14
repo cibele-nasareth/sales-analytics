@@ -64,7 +64,7 @@ Com a base de dados finalizada, foram desenvolvidas consultas SQL para responder
 
 <br>
 
-# 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
 O projeto foi desenhado utilizando ferramentas padrão de mercado para simular um pipeline real de análise de dados, desde a modelagem e estruturação até a entrega de insights estratégicos.
 
@@ -86,7 +86,7 @@ Abaixo está a representação visual da modelagem do nosso banco de dados, plan
 
 ---
 
-### 🗂️ Entendendo a Estrutura e os Relacionamentos
+### 🗃️ Entendendo a Estrutura e os Relacionamentos
 
 A arquitetura do banco foi desenhada seguindo as melhores práticas de normalização para evitar redundâncias, estruturando-se a partir de cinco entidades principais:
 
@@ -103,3 +103,172 @@ A arquitetura do banco foi desenhada seguindo as melhores práticas de normaliza
 
 4. **Produtos & Categorias (Dimensões de Catálogo):**
    * Organizados de forma hierárquica, onde cada produto é associado a uma categoria específica (`id_categoria`), permitindo a classificação do faturamento e ticket médio por grupos de produtos.
+
+
+## 🗂️ Estrutura do Projeto
+
+```text
+sales-analytics/
+├── assets/
+│   └── modelo_relacional.png
+├── scripts/
+│   ├── 01_criacao_banco.sql
+│   ├── 02_insercao_dados.sql
+│   ├── 03_consultas_analiticas.sql
+│   └── 04_validacao_dados.sql
+└── README.md
+ ```
+
+
+| Arquivo | Descrição |
+| :--- | :--- |
+| `modelo_relacional.png` | Imagem do Modelo Relacional (DER) do banco de dados |
+| `01_criacao_banco.sql` | Script de criação das tabelas e definição da estrutura do banco |
+| `02_insercao_dados.sql` | Script para inserção da carga inicial de dados |
+| `03_consultas_analiticas.sql` | Consultas SQL para análise de dados e métricas de vendas |
+| `04_validacao_dados.sql` | Script para validação e consistência dos dados inseridos |
+| `README.md` | Documentação principal do projeto |
+
+## 🕹️ Como Executar o Projeto
+
+Clone o repositório e execute os scripts **nesta ordem** no seu terminal ou cliente MySQL (substituindo `seu_usuario` e `nome_do_banco` pelos seus dados):
+
+```bash
+# 1. Criar a estrutura do banco de dados
+mysql -u seu_usuario -p nome_do_banco < scripts/01_criacao_banco.sql
+
+# 2. Inserir os dados iniciais
+mysql -u seu_usuario -p nome_do_banco < scripts/02_insercao_dados.sql
+
+# 3. Executar as consultas analíticas de vendas
+mysql -u seu_usuario -p nome_do_banco < scripts/03_consultas_analiticas.sql
+
+```
+
+Depois, para validar se tudo foi carregado corretamente, rode o script de validação:
+
+```bash
+mysql -u seu_usuario -p nome_do_banco < scripts/04_validacao_dados.sql
+```
+
+
+## 📈 Exemplos de Análise e Resultados
+
+As consultas analíticas foram mapeadas no script `03_consultas_analiticas.sql` e estruturadas para responder a perguntas estratégicas de negócio, divididas em quatro pilares principais.
+
+### 1. Desempenho de Produtos e Estoque
+
+Foco em identificar os produtos mais relevantes para o faturamento e monitorar a saúde do estoque.
+
+**ANÁLISE 1: PRODUTO MAIS VENDIDO NO PERÍODO**
+
+```sql
+SELECT produtos.nome_produto,
+       SUM(itens_venda.quantidade) AS total_vendido
+FROM produtos
+JOIN itens_venda
+ON produtos.id_produto = itens_venda.id_produto
+GROUP BY produtos.id_produto, produtos.nome_produto
+ORDER BY total_vendido DESC;
+```
+
+**Resultado da análise:**
+
+Esta consulta identifica os produtos com maior volume de vendas no período, permitindo reconhecer os itens de maior demanda. Essas informações auxiliam na gestão de estoque, no planejamento de compras e na definição de estratégias comerciais.
+
+**Resultado da consulta:**
+
+![Produtos Mais Vendidos](assets/produtos_mais_vendidos.png)
+
+---
+
+### 2. Análise Temporal e Faturamento
+
+Foco em acompanhar a evolução das vendas ao longo do tempo, identificando tendências, sazonalidades e o desempenho financeiro do negócio.
+
+**ANÁLISE 6: FATURAMENTO MENSAL**
+
+```sql
+SELECT DATE_FORMAT(v.data_venda_hora, '%Y-%m') AS mes,
+       SUM(iv.quantidade * iv.preco_unitario) AS faturamento
+FROM vendas v
+JOIN itens_venda iv
+ON v.id_venda = iv.id_venda
+GROUP BY mes
+ORDER BY mes;
+```
+
+**Resultado da análise:**
+
+Esta consulta apresenta a evolução do faturamento mensal, permitindo identificar períodos de crescimento ou queda nas vendas. A análise contribui para o acompanhamento do desempenho financeiro e para o planejamento de ações estratégicas.
+
+**Resultado da consulta:**
+
+![Faturamento Mensal](assets/faturamento%20por%20mes.png)
+
+---
+
+### 3. Métricas de Clientes, Vendedores e Pagamentos
+
+Avaliação da produtividade da equipe de vendas, do comportamento dos clientes e das preferências de pagamento.
+
+**ANÁLISE 12: CLIENTES ACIMA DA MÉDIA DE COMPRAS**
+
+```sql
+SELECT c.nome,
+       COUNT(v.id_venda) AS quantidade_comprada
+FROM clientes c
+JOIN vendas v
+ON c.id_cliente = v.id_cliente
+GROUP BY c.id_cliente, c.nome
+HAVING COUNT(v.id_venda) >
+(
+    SELECT AVG(total_compras)
+    FROM (
+        SELECT COUNT(id_venda) AS total_compras
+        FROM vendas
+        GROUP BY id_cliente
+    ) AS media_clientes
+)
+ORDER BY quantidade_comprada DESC;
+```
+
+**Resultado da análise:**
+
+Esta consulta identifica os clientes que realizaram um número de compras superior à média da base. Esses consumidores representam um público de maior recorrência e podem ser priorizados em estratégias de fidelização e relacionamento.
+
+**Resultado da consulta:**
+
+![Clientes Acima da Média](assets/Clientes_acima_media_compras.png)
+
+---
+
+### 4. Visão Geral do Negócio (Dashboard SQL)
+
+Consolidação dos principais indicadores de desempenho (KPIs), fornecendo uma visão executiva da saúde financeira e operacional do negócio.
+
+**ANÁLISE 15: RESUMO GERAL DO NEGÓCIO**
+
+```sql
+SELECT
+    COUNT(DISTINCT v.id_venda) AS Total_Vendas,
+    COUNT(DISTINCT v.id_cliente) AS Total_Clientes,
+    FORMAT(SUM(iv.quantidade * iv.preco_unitario), 0) AS faturamento,
+    SUM(iv.quantidade) AS Produtos_Vendidos,
+    ROUND(SUM(iv.quantidade * iv.preco_unitario) / COUNT(DISTINCT v.id_venda), 2) AS Ticket_Medio
+FROM vendas v
+JOIN itens_venda iv
+ON v.id_venda = iv.id_venda;
+```
+
+**Resultado da análise:**
+
+Esta consulta reúne os principais indicadores do negócio em uma única visão, apresentando o total de vendas, clientes atendidos, faturamento, quantidade de produtos vendidos e ticket médio. O resultado facilita o acompanhamento do desempenho geral da empresa e apoia a tomada de decisões estratégicas.
+
+**Resultado da consulta:**
+
+![Visão Geral do Negócio](assets/visao_geral.png)
+
+
+
+
