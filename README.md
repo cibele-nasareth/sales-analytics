@@ -104,6 +104,7 @@ A arquitetura do banco foi desenhada seguindo as melhores práticas de normaliza
 4. **Produtos & Categorias (Dimensões de Catálogo):**
    * Organizados de forma hierárquica, onde cada produto é associado a uma categoria específica (`id_categoria`), permitindo a classificação do faturamento e ticket médio por grupos de produtos.
 
+<br>
 
 ## 🗂️ Estrutura do Projeto
 
@@ -129,6 +130,8 @@ sales-analytics/
 | `04_validacao_dados.sql` | Script para validação e consistência dos dados inseridos |
 | `README.md` | Documentação principal do projeto |
 
+<br>
+
 ## 🕹️ Como Executar o Projeto
 
 Clone o repositório e execute os scripts **nesta ordem** no seu terminal ou cliente MySQL (substituindo `seu_usuario` e `nome_do_banco` pelos seus dados):
@@ -151,6 +154,7 @@ Depois, para validar se tudo foi carregado corretamente, rode o script de valida
 mysql -u seu_usuario -p nome_do_banco < scripts/04_validacao_dados.sql
 ```
 
+<br>
 
 ## 📈 Exemplos de Análise e Resultados
 
@@ -269,6 +273,23 @@ Esta consulta reúne os principais indicadores do negócio em uma única visão,
 
 ![Visão Geral do Negócio](assets/visao_geral.png)
 
+<br>
+
+## 📌 Conclusão
+
+Este projeto demonstra a aplicação prática de SQL na modelagem de banco de dados, manipulação de informações e desenvolvimento de consultas analíticas voltadas ao suporte à tomada de decisão.
+
+Por meio das análises realizadas, foi possível transformar dados de vendas em informações estratégicas, evidenciando competências em modelagem de dados, consultas SQL e análise de indicadores de negócio.
+
+<br>
 
 
+## 👩‍💻 Autora
+
+**Cibele Nasareth**
+
+Estudante de Sistemas de Informação, dedicada ao desenvolvimento de projetos de Análise de Dados, com habilidades em SQL, MySQL, Python e Excel.
+
+- **LinkedIn**: https://www.linkedin.com/in/cibele-nasareth-509005272/ 
+- **GitHub**: https://github.com/cibele-nasareth 
 
