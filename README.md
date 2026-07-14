@@ -78,10 +78,11 @@ O projeto foi desenhado utilizando ferramentas padrão de mercado para simular u
 
 Abaixo está a representação visual da modelagem do nosso banco de dados, planejada para garantir a integridade referencial e otimizar as consultas analíticas de vendas.
 
-![Modelo Relacional - Sales Analytics](./caminho-da-sua-foto/IMG_7154.jpeg)
+![Modelo Relacional - Sales Analytics](assets/C68DC109-63F4-4473-A40A-5DEAAAD6CE94.png)
+
 
 > 📌 **Nota de Evolução do Projeto:** 
-> O diagrama acima apresenta a **arquitetura e modelagem inicial** do banco de dados. Para enriquecer as análises de negócios (Business Intelligence), o modelo foi expandido posteriormente com a inclusão de novas colunas estratégicas nas tabelas de `cliente` (como gênero, data de nascimento e localização) e `vendedores` (cidade e estado), permitindo cruzamentos demográficos e geográficos mais profundos.
+> O diagrama acima apresenta a **arquitetura e modelagem inicial** do banco de dados. Para enriquecer as análises de negócios (Business Intelligence), o modelo foi expandido posteriormente com a inclusão de novas colunas estratégicas nas tabelas como `cliente` (como gênero, data de nascimento e localização) e `vendas` (forma de pagamento), permitindo cruzamentos financeiros e geográficos mais profundos.
 
 ---
 
@@ -102,4 +103,3 @@ A arquitetura do banco foi desenhada seguindo as melhores práticas de normaliza
 
 4. **Produtos & Categorias (Dimensões de Catálogo):**
    * Organizados de forma hierárquica, onde cada produto é associado a uma categoria específica (`id_categoria`), permitindo a classificação do faturamento e ticket médio por grupos de produtos.
- ççf
