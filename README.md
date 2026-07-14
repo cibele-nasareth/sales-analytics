@@ -15,7 +15,7 @@
 
 Este projeto foi desenvolvido para simular um ambiente de vendas de um e-commerce utilizando um banco de dados relacional em MySQL. 
 
-O objetivo foi aplicar conceitos de modelagem de dados, SQL, e análise de dados em um cenário próximo ao encontrado em aplicações comerciais, desde a criação da estrutura do banco até a obtenção de insights por meio de consultas analíticas.
+O objetivo foi aplicar conceitos de modelagem de dados, SQL, e análise de dados em um cenário próximo ao encontrado em aplicações comerciais, desde a criação da estrutura do banco que se nomeia como cimark, até a obtenção de insights por meio de consultas analíticas.
 
 Durante o desenvolvimento, o projeto foi organizado em etapas para facilitar a manutenção,  reutilização dos scripts e a evolução da solução.
 
