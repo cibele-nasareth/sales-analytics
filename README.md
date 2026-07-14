@@ -78,7 +78,7 @@ O projeto foi desenhado utilizando ferramentas padrão de mercado para simular u
 
 Abaixo está a representação visual da modelagem do nosso banco de dados, planejada para garantir a integridade referencial e otimizar as consultas analíticas de vendas.
 
-![Modelo Relacional - Sales Analytics](assets/C68DC109-63F4-4473-A40A-5DEAAAD6CE94.png)
+![Modelo Relacional - Sales Analytics](assets/modelo_relacional.png)
 
 
 > 📌 **Nota de Evolução do Projeto:** 
